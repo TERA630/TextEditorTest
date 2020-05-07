@@ -12,7 +12,13 @@ import androidx.navigation.fragment.findNavController
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class FirstFragment : Fragment() {
-
+        private lateinit var mAdaptor: FirstListAdaptor
+        companion object {
+            @JvmStatic
+            fun newInstance(): FirstFragment {
+                return FirstFragment()
+            }
+        }
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
