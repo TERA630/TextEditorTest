@@ -49,7 +49,7 @@ class FirstFragment : Fragment() {
         })
         seekBar3.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val scale = seekBar3.progress.toFloat() / 10
+                val scale = seekBar3.progress
                 model.textLineSpace.postValue(scale)
             }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -62,6 +62,10 @@ class FirstFragment : Fragment() {
 
         model.textFontSize.observe(viewLifecycleOwner, Observer {
             Log.i("Fragment","textFontSize Changed.")
+            firstListAdaptor.changeFontSize()
+        })
+        model.textLineSpace.observe(viewLifecycleOwner, Observer {
+            Log.i("Fragment","textLineSpace Changed.")
             firstListAdaptor.changeFontSize()
         })
     }

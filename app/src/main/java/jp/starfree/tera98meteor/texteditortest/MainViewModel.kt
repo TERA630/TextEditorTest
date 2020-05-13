@@ -7,8 +7,8 @@ class MainViewModel:ViewModel() {
     val textFontSize:MutableLiveData<Float> by lazy {
         MutableLiveData<Float>(8F)
     }
-    val textLineSpace:MutableLiveData<Float> by lazy {
-        MutableLiveData<Float>(8F)
+    val textLineSpace:MutableLiveData<Int> by lazy {
+        MutableLiveData<Int>(1)
     }
 
 }
