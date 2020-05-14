@@ -1,16 +1,12 @@
 package jp.starfree.tera98meteor.texteditortest
 
-import android.app.ActionBar
-import android.text.Layout
+import android.content.Context
+import android.graphics.Rect
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.MarginLayoutParamsCompat
-import androidx.core.view.marginBottom
-import androidx.core.view.marginStart
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_simple.view.*
 
@@ -25,19 +21,9 @@ class FirstListAdaptor (private val viewModel: MainViewModel):RecyclerView.Adapt
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val vH = holder as ViewHolderOfCell
-        val container = holder.rowView
-        val rowText = TextView(holder.rowView.context)
-        rowText.text = "我が輩は猫である｡"
         val fontSize = viewModel.textFontSize.value ?: 10F
+        val rowText = vH.rowView.list_item as TextView
         rowText.setTextSize(TypedValue.COMPLEX_UNIT_SP ,fontSize)
-        val layoutParam = rowText.layoutParams
-        layoutParam.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
-        layoutParam.width = ConstraintLayout.LayoutParams.WRAP_CONTENT
-        val mlp  = ViewGroup.MarginLayoutParams(layoutParam)
-        val margin = viewModel.textLineSpace.value ?: 0
-        mlp.setMargins(mlp.marginStart,margin,mlp.marginEnd, margin)
-        
-     //   rowText.layoutParams = mlp
     }
     class ViewHolderOfCell(_rowView: View) : RecyclerView.ViewHolder(_rowView){
         val rowView: View =  _rowView
@@ -45,5 +31,23 @@ class FirstListAdaptor (private val viewModel: MainViewModel):RecyclerView.Adapt
 
     fun changeFontSize(){
         notifyDataSetChanged()
+    }
+}
+class CustomItemDecoration(val margin:Int):RecyclerView.ItemDecoration() {
+
+    fun createDefaultDecoration(context: Context): CustomItemDecoration? {
+        val spacingInPixels = context.resources.getDimensionPixelSize(R.dimen.item_margin)
+        return CustomItemDecoration(spacingInPixels)
+    }
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        outRect.top = margin
+        outRect.left = 4
+        outRect.right = 4
+        outRect.bottom = margin
     }
 }

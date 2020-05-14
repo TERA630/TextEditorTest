@@ -5,4 +5,11 @@
     android:id="@+id/eachRow"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWheat">
+    <TextView
+        android:id="@+id/list_item"
+        style="@style/myEditorText"
+        android:layout_width="wrap_content"  android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/testString"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

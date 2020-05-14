@@ -35,6 +35,8 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val firstListAdaptor = FirstListAdaptor(model)
         firstList.adapter = firstListAdaptor
+        val spaceDecoration = CustomItemDecoration(9)
+        firstList.addItemDecoration(spaceDecoration)
         view.findViewById<Button>(R.id.button_first).setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
