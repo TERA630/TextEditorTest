@@ -11,11 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_first.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
+
 class FirstFragment : Fragment() {
     private val model: MainViewModel by activityViewModels()
         companion object {
@@ -35,7 +37,6 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val firstListAdaptor = FirstListAdaptor(model)
         firstList.adapter = firstListAdaptor
-
          view.findViewById<Button>(R.id.button_first).setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
@@ -60,7 +61,6 @@ class FirstFragment : Fragment() {
         })
 
 
-
         model.textFontSize.observe(viewLifecycleOwner, Observer {
             Log.i("Fragment","textFontSize Changed.")
             firstListAdaptor.changeFontSize()
@@ -70,11 +70,17 @@ class FirstFragment : Fragment() {
 
             val margin = model.textLineSpace.value ?: 0
             val spaceDecoration = CustomItemDecoration(margin)
-            firstList.removeItemDecoration(spaceDecoration)
+            firstList.removeItemDecorations()
             firstList.addItemDecoration(spaceDecoration)
             firstListAdaptor.changeFontSize()
 
         })
     }
 
+}
+
+fun <T : RecyclerView> T.removeItemDecorations() {
+    while (itemDecorationCount > 0) {
+        removeItemDecorationAt(0)
+    }
 }
